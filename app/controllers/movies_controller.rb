@@ -1,18 +1,15 @@
 class MoviesController < ApplicationController
   def new
-    @the_movie = Movie.new
-
-    render template: "movies/new.html.erb"
+   @movie = MOvie.new(title: "hi", description: "bye")
+   @movie.save
   end
 
   def index
-    matching_movies = Movie.all
-
-    @list_of_movies = matching_movies.order({ :created_at => :desc })
+    @movies = Movie.order(created_at: :desc)
 
     respond_to do |format|
       format.json do
-        render json: @list_of_movies
+        render json: @movies
       end
 
       format.html do
