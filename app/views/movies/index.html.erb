@@ -2,10 +2,20 @@
   List of all movies
 </h1>
 
+<form>
+<label>red</label>
+<input name="zebra[giraffe]" value="red">
+
+<label>blue</label>
+<input name="zebra[elephant]" value="blue">
+
+<button>Submit</button>
+</form>
+
 <hr>
 
 <div>
-  <a href="/movies/new">Add a new movie</a>
+  <%= link_to "Add to new movie", new_movie_path %>
 </div>
 
 <hr>
