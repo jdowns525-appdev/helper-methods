@@ -12,32 +12,22 @@ class MoviesController < ApplicationController
         render json: @movies
       end
 
-      format.html do
-        render({ :template => "movies/index.html.erb" })
-      end
+      format.html
     end
   end
 
   def show
-    the_id = params.fetch(:id)
-
-    matching_movies = Movie.where({ :id => the_id })
-
-    @the_movie = matching_movies.first
-
-    render({ :template => "movies/show.html.erb" })
+    @movie = Movie.find(params.fetch(:id))
   end
 
   def create
-    @the_movie = Movie.new
-    @the_movie.title = params.fetch("query_title")
-    @the_movie.description = params.fetch("query_description")
-
-    if @the_movie.valid?
-      @the_movie.save
-      redirect_to("/movies", { :notice => "Movie created successfully." })
+   movie_attributes = params.require(:movie).permit(:title, :description)
+    @movie = Movie.new(movie_attributes)
+    if @movie.valid?
+        @movie.save
+        redirect_to movies_url, notice: "Movie Created Successfully."
     else
-      render template: "movies/new.html.erb"
+      render "new"
     end
   end
 
