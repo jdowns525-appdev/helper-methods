@@ -32,13 +32,7 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    the_id = params.fetch(:id)
-
-    matching_movies = Movie.where({ :id => the_id })
-
-    @the_movie = matching_movies.first
-
-    render({ :template => "movies/edit.html.erb" })
+    @movie = Movie.find(params.fetch(:id))
   end
 
   def update
