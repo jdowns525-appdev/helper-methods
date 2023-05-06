@@ -36,17 +36,16 @@ class MoviesController < ApplicationController
   end
 
   def update
-    the_id = params.fetch(:id)
-    the_movie = Movie.where({ :id => the_id }).first
+    @movie = Movie.find(params.fetch(:id))
 
-    the_movie.title = params.fetch("query_title")
-    the_movie.description = params.fetch("query_description")
+    @movie.title = params.fetch(:title)
+    @movie.description = params.fetch(:description)
 
-    if the_movie.valid?
-      the_movie.save
-      redirect_to("/movies/#{the_movie.id}", { :notice => "Movie updated successfully."} )
+    if @movie.valid?
+      @movie.save
+      redirect_to movie_url(@movie), notice: "Movie Created Successfully."
     else
-      redirect_to("/movies/#{the_movie.id}", { :alert => "Movie failed to update successfully." })
+      redirect_to movie_url(@movie), alert: "Movie failed to Update Sucessfully."
     end
   end
 
